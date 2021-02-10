@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+option go_package = "analytics";
+option java_multiple_files = true;
+option java_package = "org.ef.analytics.service";
+option java_outer_classname = "Analytics";
+option objc_class_prefix = "HLW";
+import "google/protobuf/struct.proto";
+
+package analytics;
+
+service Test {
+  rpc test(Void) returns (LogEventResponse) {}
+}
+
+message Void {}
+
+service EventLog {
+  rpc logEvent(LogEventRequest) returns (LogEventResponse) {}
+}
+
+message AppInfo {
+  string appPackage = 1;
+  int32 appVersionCode = 2;
+  string appVersion = 3;
+  string installationId = 4;
+  string sessionId = 5;
+}
+message DeviceInfo {
+  string osVersion = 1;
+  string manufacturer = 2;
+  string modelNumber = 3;
+  string platform = 4;
+  string imei = 5;
+}
+message UserLocation {
+  string country = 1;
+  string address = 2;
+  string lat = 3;
+  string lng = 4;
+}
+
+message LogEventRequest {
+  string environment = 1;
+  string userId = 2;
+  string eventId = 3;
+  string flow = 4;
+  string screenName = 5;
+  AppInfo appInfo = 6;
+  DeviceInfo deviceInfo = 7;
+  UserLocation location = 8;
+  string appLanguage = 9;
+  string description = 10;
+  google.protobuf.Struct data = 100;
+  int64 time =  101;
+}
+
+message LogEventResponse {
+  ResponseCode status = 1;
+  string message = 2;
+  int64 time =  3;
+}
+
+enum ResponseCode {
+  SUCCESS = 0;
+  ERROR = 1;
+}

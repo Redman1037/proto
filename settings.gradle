@@ -1,0 +1,4 @@
+include ':temp'
+include ':app'
+rootProject.name = "ProtoBuf"
+include ':analytics'//include ':app'
